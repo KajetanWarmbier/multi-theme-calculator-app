@@ -1,27 +1,45 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div :class="'theme--' + appTheme">
+    <div id="theme">
+      <div id="container">
+        <AppHeaderWithThemeSelector />
+        <AppCalculator />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import { defineComponent, ref } from "vue";
+import { useStore } from "./store";
+
+import AppHeaderWithThemeSelector from "./components/AppHeaderWithThemeSelector.vue";
+import AppCalculator from "./components/AppCalculator.vue";
 
 export default defineComponent({
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+  name: "App",
+  components: { AppHeaderWithThemeSelector, AppCalculator },
+  setup() {
+    const store = useStore();
+    const appTheme = ref<string>(store.state.appTheme);
+
+    store.watch(
+      (getters) => getters.appTheme,
+      () => {
+        appTheme.value = store.state.appTheme;
+      }
+    );
+
+    return {
+      appTheme,
+    };
+  },
 });
 </script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

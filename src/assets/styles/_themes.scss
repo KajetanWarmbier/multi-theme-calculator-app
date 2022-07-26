@@ -1,0 +1,70 @@
+$themes: (
+  theme-1: (
+    main-background: hsl(222, 26%, 31%),
+    toggle-background: hsl(223, 31%, 20%),
+    screen-background: hsl(224, 36%, 15%),
+    key-background: hsl(225, 21%, 49%),
+    key-shadow: hsl(224, 28%, 35%),
+    key-background-2: hsl(6, 63%, 50%),
+    key-shadow-2: hsl(6, 70%, 34%),
+    key-background-3: hsl(30, 25%, 89%),
+    key-shadow-3: hsl(28, 16%, 65%),
+    text-header: hsl(0, 0, 100%),
+    text-keys: hsl(221, 14%, 31%),
+    text-keys-prim: hsl(0, 0, 100%),
+    text-equal: hsl(0, 0, 100%),
+  ),
+  theme-2: (
+    main-background: hsl(0, 0%, 90%),
+    toggle-background: hsl(0, 5%, 81%),
+    screen-background: hsl(0, 0%, 93%),
+    key-background: hsl(185, 42%, 37%),
+    key-shadow: hsl(185, 58%, 25%),
+    key-background-2: hsl(25, 98%, 40%),
+    key-shadow-2: hsl(25, 99%, 27%),
+    key-background-3: hsl(45, 7%, 89%),
+    key-shadow-3: hsl(35, 11%, 61%),
+    text-header: hsl(60, 10%, 19%),
+    text-keys: hsl(60, 10%, 19%),
+    text-keys-prim: hsl(0, 0, 100%),
+    text-equal: hsl(0, 0, 100%),
+  ),
+  theme-3: (
+    main-background: hsl(268, 75%, 9%),
+    toggle-background: hsl(268, 71%, 12%),
+    screen-background: hsl(268, 71%, 12%),
+    key-background: hsl(281, 89%, 26%),
+    key-shadow: hsl(285, 91%, 52%),
+    key-background-2: hsl(176, 100%, 44%),
+    key-shadow-2: hsl(177, 92%, 70%),
+    key-background-3: hsl(268, 47%, 21%),
+    key-shadow-3: hsl(290, 70%, 36%),
+    text-header: hsl(52, 100%, 62%),
+    text-keys: hsl(52, 100%, 62%),
+    text-keys-prim: hsl(0, 0, 100%),
+    text-equal: hsl(198, 20%, 13%),
+  ),
+);
+
+@mixin themed() {
+  @each $theme, $map in $themes {
+    .theme--#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), "#{$key}");
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function theme($key) {
+  @return map-get($theme-map, $key);
+}

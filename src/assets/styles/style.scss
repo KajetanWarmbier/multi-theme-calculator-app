@@ -1,0 +1,250 @@
+@import "_themes.scss";
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "League Spartan", sans-serif;
+  font-size: 32px;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  span {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+#theme {
+  height: 100vh;
+  width: 100%;
+  @include themed() {
+    background-color: theme(main-background);
+    color: theme(text-keys-prim);
+  }
+}
+
+#container {
+  // min-width: 325px;
+  // min-height: 610px;
+  max-width: 540px;
+  max-height: 710px;
+  margin: 0 auto;
+  padding: 25px;
+}
+
+.header-with-theme-selector {
+  @include themed() {
+    color: theme(text-header);
+  }
+  height: 45px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+  .theme-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+
+    .theme-toogler-numbers {
+      grid-column: 2/3;
+      grid-row: 1/2;
+      font-size: 16px;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    span {
+      font-size: 14px;
+      grid-column: 1/2;
+      grid-row: 2/3;
+    }
+
+    .theme-toogler {
+      @include themed() {
+        background-color: theme(toggle-background);
+      }
+      grid-column: 2/3;
+      grid-row: 2/3;
+      width: 70px;
+      height: 25px;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -ms-border-radius: 15px;
+      -o-border-radius: 15px;
+
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .custom-radio-button {
+      margin-left: 2px;
+      margin-right: 2px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      -ms-border-radius: 50%;
+      -o-border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      input {
+        display: none;
+      }
+
+      .checkmark {
+        @include themed() {
+          background-color: theme(key-background-2);
+        }
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        display: inline-block;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+
+        &:hover {
+          cursor: pointer;
+          filter: brightness(120%);
+          -webkit-filter: brightness(120%);
+        }
+      }
+
+      input:checked + .checkmark {
+        opacity: 1;
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.calc-screen {
+  @include themed() {
+    background-color: theme(screen-background);
+    color: theme(text-header);
+  }
+  -webkit-box-shadow: 0px 0px 80px -41px rgba(50, 50, 50, 1);
+  -moz-box-shadow: 0px 0px 80px -41px rgba(50, 50, 50, 1);
+  box-shadow: 0px 0px 80px -41px rgba(50, 50, 50, 1);
+  margin-top: 32px;
+  height: 88px;
+  width: 100%;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  h3 {
+    margin-right: 25px;
+  }
+}
+
+.calc-keyboard {
+  @include themed() {
+    background-color: theme(toggle-background);
+  }
+  margin-top: 24px;
+  width: 100%;
+  height: 420px;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.keyboard {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  row-gap: 16px;
+  column-gap: 13px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+}
+
+.calc-button {
+  border: none;
+  @include themed() {
+    background-color: theme(key-background-3);
+    color: theme(text-keys);
+    border-bottom: 4px solid theme(key-shadow-3);
+  }
+  width: 60px;
+  height: 64px;
+
+  border-radius: 7px;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  -o-border-radius: 7px;
+
+  &:hover {
+    cursor: pointer;
+    filter: brightness(130%);
+    -webkit-filter: brightness(130%);
+  }
+
+  &:active {
+    cursor: pointer;
+    filter: brightness(130%);
+    -webkit-filter: brightness(130%);
+    transform: translateY(2px);
+    -webkit-transform: translateY(2px);
+    -moz-transform: translateY(2px);
+    -ms-transform: translateY(2px);
+    -o-transform: translateY(2px);
+  }
+}
+
+.calc-button-prim {
+  @include themed() {
+    background-color: theme(key-background);
+    color: theme(text-keys-prim);
+    border-bottom: 4px solid theme(key-shadow);
+  }
+}
+
+.calc-button-reset {
+  width: 133px;
+  grid-column: span 2;
+}
+
+.calc-button-equal {
+  @include themed() {
+    background-color: theme(key-background-2);
+    color: theme(text-equal);
+    border-bottom: 4px solid theme(key-shadow-2);
+  }
+  grid-column: span 2;
+  width: 133px;
+}
+
+@media (min-width: 590px) {
+  .calc-button {
+    width: 100px;
+  }
+
+  .calc-button-reset,
+  .calc-button-equal {
+    width: 227px;
+  }
+}
